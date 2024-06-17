@@ -8,6 +8,6 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: test
+      POSTGRES_DB: uno
       POSTGRES_USER: jonas
       POSTGRES_PASSWORD: mypassword
