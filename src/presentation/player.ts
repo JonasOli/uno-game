@@ -27,6 +27,18 @@ playerRouter.get('/:id', async (req: Request, res: Response) => {
   return res.send(player?.[0]);
 });
 
+playerRouter.put('/:id', async (req: Request, res: Response) => {
+  const { name, email, age } = req.body;
 
+  await Player.update({ name, email, age }, { where: { id: req.params.id } });
+
+  return res.sendStatus(200);
+});
+
+playerRouter.delete('/:id', async (req: Request, res: Response) => {
+  await Player.destroy({ where: { id: req.params.id } });
+
+  return res.sendStatus(204);
+});
 
 export default playerRouter;
