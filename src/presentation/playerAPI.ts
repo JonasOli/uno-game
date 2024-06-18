@@ -1,5 +1,5 @@
 import express, { Request, Response, Router } from 'express';
-import Player from '../repository/Player';
+import Player from '../repository/models/Player';
 
 const playerRouter: Router = express.Router();
 
