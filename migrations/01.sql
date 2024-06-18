@@ -16,3 +16,13 @@ create table game(
     updated_at date,
     deleted_at date
 );
+
+create table game_session(
+    id serial primary key,
+    score int,
+    game_id int references game,
+    player_id int references player,
+    created_at date,
+    updated_at date,
+    deleted_at date
+);

@@ -1,32 +1,30 @@
 import { CreationOptional, DataTypes, Model } from 'sequelize';
 import { sequelize } from '../../db';
+import Game from './Game';
+import Player from './Player';
 
-class Game extends Model {
+class GameSession extends Model {
   declare id: number;
-  declare status: string;
-  declare max_players: number;
+  declare score: number;
   declare created_at: CreationOptional<Date>;
   declare updated_at: CreationOptional<Date>;
-  declare deleted_at: Date | null;
+  declare deleted_at: CreationOptional<Date>;
 }
 
-Game.init(
+GameSession.init(
   {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    status: {
-      type: DataTypes.TEXT,
-    },
-    max_players: {
+    score: {
       type: DataTypes.INTEGER,
     },
   },
   {
     sequelize,
-    tableName: 'game',
+    tableName: 'game_session',
     paranoid: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
@@ -34,4 +32,7 @@ Game.init(
   }
 );
 
-export default Game;
+Game.belongsToMany(Player, { through: GameSession, foreignKey: 'player_id' });
+Player.belongsToMany(Game, { through: GameSession, foreignKey: 'game_id' });
+
+export default GameSession;

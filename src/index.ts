@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express, { Express, Request, Response } from 'express';
 import gameRouter from './presentation/gameAPI';
+import gameSessionRouter from './presentation/gameSessionAPI';
 import playerRouter from './presentation/playerAPI';
 import { errors } from './util/statusMessages';
 
@@ -14,6 +15,7 @@ app.use(express.json());
 // Routes
 app.use('/api/player', playerRouter);
 app.use('/api/game', gameRouter);
+app.use('/api/game-session', gameSessionRouter);
 
 app.use((err: Error, req: Request, res: Response, next: any): any => {
   const hasKnownError = Object.values(errors).some(
