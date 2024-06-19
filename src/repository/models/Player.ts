@@ -6,6 +6,7 @@ class Player extends Model {
   declare name: string;
   declare email: string;
   declare age: number;
+  declare password: string;
   declare created_at: CreationOptional<Date>;
   declare updated_at: CreationOptional<Date>;
   declare deleted_at: Date | null;
@@ -24,6 +25,9 @@ Player.init(
     email: {
       type: DataTypes.TEXT,
     },
+    password: {
+      type: DataTypes.TEXT,
+    },
     age: {
       type: DataTypes.INTEGER,
     },
@@ -34,7 +38,7 @@ Player.init(
     paranoid: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
-    deletedAt: 'deleted_at'
+    deletedAt: 'deleted_at',
   }
 );
 
