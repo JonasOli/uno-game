@@ -1,6 +1,7 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express, { Express, Request, Response } from 'express';
+import authRouter from './presentation/authAPI';
 import cardRouter from './presentation/cardAPI';
 import gameRouter from './presentation/gameAPI';
 import gameSessionRouter from './presentation/gameSessionAPI';
@@ -20,6 +21,7 @@ app.use('/api/player', playerRouter);
 app.use('/api/game', gameRouter);
 app.use('/api/game-session', gameSessionRouter);
 app.use('/api/card', cardRouter);
+app.use('/api/auth', authRouter);
 
 app.use((err: Error, req: Request, res: Response, next: any): any => {
   const hasKnownError = Object.values(errors).some(

@@ -1,6 +1,7 @@
 import express, { Router } from 'express';
 import { createPlayer } from '../application/playerApp';
 import Player from '../repository/models/Player';
+import { success } from '../util/statusMessages';
 
 const playerRouter: Router = express.Router();
 
@@ -10,7 +11,7 @@ playerRouter.post('/', async (req, res, next) => {
 
     await createPlayer(name, email, age, password);
 
-    return res.sendStatus(201);
+    return res.status(201).send({ message: success.USER_REGISTERED });
   } catch (err) {
     next(err);
   }
