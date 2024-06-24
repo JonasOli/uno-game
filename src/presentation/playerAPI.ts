@@ -18,13 +18,16 @@ playerRouter.post('/', async (req, res, next) => {
 });
 
 playerRouter.get('/', async (req, res) => {
-  const players = await Player.findAll();
+  const players = await Player.findAll({
+    attributes: { exclude: ['password'] },
+  });
 
   return res.send(players);
 });
 
 playerRouter.get('/:id', async (req, res) => {
   const player = await Player.findAll({
+    attributes: { exclude: ['password'] },
     where: {
       id: req.params.id,
     },
