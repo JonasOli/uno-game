@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import { createPlayer } from '../application/playerApp';
+import authenticationMiddleware from '../middleware/authenticationMiddleware';
 import Player from '../repository/models/Player';
 import { success } from '../util/statusMessages';
 
@@ -17,7 +18,7 @@ playerRouter.post('/', async (req, res, next) => {
   }
 });
 
-playerRouter.get('/', async (req, res) => {
+playerRouter.get('/', authenticationMiddleware, async (req, res) => {
   const players = await Player.findAll({
     attributes: { exclude: ['password'] },
   });
@@ -25,7 +26,7 @@ playerRouter.get('/', async (req, res) => {
   return res.send(players);
 });
 
-playerRouter.get('/:id', async (req, res) => {
+playerRouter.get('/:id', authenticationMiddleware, async (req, res) => {
   const player = await Player.findAll({
     attributes: { exclude: ['password'] },
     where: {
@@ -36,7 +37,7 @@ playerRouter.get('/:id', async (req, res) => {
   return res.send(player?.[0]);
 });
 
-playerRouter.put('/:id', async (req, res) => {
+playerRouter.put('/:id', authenticationMiddleware, async (req, res) => {
   const { name, email, age } = req.body;
 
   await Player.update({ name, email, age }, { where: { id: req.params.id } });
@@ -44,7 +45,7 @@ playerRouter.put('/:id', async (req, res) => {
   return res.sendStatus(200);
 });
 
-playerRouter.delete('/:id', async (req, res) => {
+playerRouter.delete('/:id', authenticationMiddleware, async (req, res) => {
   await Player.destroy({ where: { id: req.params.id } });
 
   return res.sendStatus(204);
