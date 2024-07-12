@@ -29,4 +29,10 @@ async function signin(email: string, password: string) {
   );
 }
 
-export { signin };
+async function generateHashedPassword(password: string) {
+  const saltRounds = 10;
+
+  return await bcrypt.hash(password, saltRounds);
+}
+
+export { generateHashedPassword, signin };

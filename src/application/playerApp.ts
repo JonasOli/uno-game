@@ -1,6 +1,6 @@
-import bcrypt from 'bcrypt';
 import Player from '../repository/models/Player';
 import { errors } from '../util/statusMessages';
+import { generateHashedPassword } from './authApp';
 
 async function createPlayer(
   name: string,
@@ -14,8 +14,7 @@ async function createPlayer(
     throw new Error(errors.USER_ALREADY_EXISTS);
   }
 
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  const hashedPassword = await generateHashedPassword(password);
 
   await Player.create({ name, email, age, password: hashedPassword });
 }

@@ -1,4 +1,4 @@
-import { playerCountIsValid } from '../application/gameApp';
+import { playerCountIsValid } from '../gameApp';
 
 describe('Game', () => {
   it('should only be available to have multiple of 2 number of players', () => {
