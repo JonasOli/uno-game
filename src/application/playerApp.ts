@@ -8,9 +8,9 @@ async function createPlayer(
   age: number,
   password: string
 ) {
-  const player = await Player.findAll({ where: { email } });
+  const player = await Player.findOne({ where: { email } });
 
-  if (player.length > 0) {
+  if (!!player) {
     throw new Error(errors.USER_ALREADY_EXISTS);
   }
 
