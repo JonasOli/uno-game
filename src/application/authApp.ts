@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import { randomUUID } from 'crypto';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import Player from '../repository/models/Player';
@@ -20,13 +21,16 @@ async function signin(email: string, password: string) {
     throw new Error(errors.INVALID_CREDENTIALS);
   }
 
-  return jwt.sign(
-    { email, password: playerPassword },
+  const csrfToken = randomUUID();
+  const authToken = jwt.sign(
+    { email, password: playerPassword, csrfToken },
     process.env.JWT_SECRET ?? '',
     {
-      expiresIn: '1800s',
+      expiresIn: '1h',
     }
   );
+
+  return { csrfToken, authToken };
 }
 
 async function generateHashedPassword(password: string) {

@@ -6,10 +6,12 @@ const authRouter: Router = express.Router();
 authRouter.post('/signin', async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    const { authToken, csrfToken } = await signin(email, password);
 
-    const token = await signin(email, password);
+    res.setHeader('X-CSRF-Token', csrfToken);
+    res.cookie('userJWT', authToken, { httpOnly: true });
 
-    return res.cookie('userJWT', token, { httpOnly: true }).send();
+    return res.send();
   } catch (err) {
     next(err);
   }

@@ -57,8 +57,8 @@ describe('Auth', () => {
     const JWT_SECRET = 'test_secret';
     process.env.JWT_SECRET = JWT_SECRET;
 
-    const token = await signin('email', 'mypassword');
-    const result = jwt.verify(token, JWT_SECRET);
+    const { authToken } = await signin('email', 'mypassword');
+    const result = jwt.verify(authToken, JWT_SECRET);
 
     expect(result).toBeTruthy();
   });
