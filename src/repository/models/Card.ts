@@ -4,12 +4,12 @@ import Game from './Game';
 
 class Card extends Model {
   declare id: number;
-  declare game_id: number;
+  declare gameId: number;
   declare value: string;
   declare color: string;
-  declare created_at: CreationOptional<Date>;
-  declare updated_at: CreationOptional<Date>;
-  declare deleted_at: CreationOptional<Date>;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
+  declare deletedAt: CreationOptional<Date>;
 }
 
 Card.init(
@@ -30,12 +30,10 @@ Card.init(
     sequelize,
     tableName: 'card',
     paranoid: true,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-    deletedAt: 'deleted_at',
+    underscored: true,
   }
 );
 
-Game.belongsTo(Card, { foreignKey: 'game_id' });
+Card.belongsTo(Game, { foreignKey: 'gameId' });
 
 export default Card;

@@ -7,9 +7,9 @@ class Player extends Model {
   declare email: string;
   declare age: number;
   declare password: string;
-  declare created_at: CreationOptional<Date>;
-  declare updated_at: CreationOptional<Date>;
-  declare deleted_at: Date | null;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
+  declare deletedAt: Date | null;
 }
 
 Player.init(
@@ -36,9 +36,7 @@ Player.init(
     sequelize,
     tableName: 'player',
     paranoid: true,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-    deletedAt: 'deleted_at',
+    underscored: true,
   }
 );
 

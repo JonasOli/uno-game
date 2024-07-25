@@ -4,10 +4,10 @@ import { sequelize } from '../../db';
 class Game extends Model {
   declare id: number;
   declare status: string;
-  declare max_players: number;
-  declare created_at: CreationOptional<Date>;
-  declare updated_at: CreationOptional<Date>;
-  declare deleted_at: Date | null;
+  declare maxPlayers: number;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
+  declare deletedAt: Date | null;
 }
 
 Game.init(
@@ -20,7 +20,7 @@ Game.init(
     status: {
       type: DataTypes.TEXT,
     },
-    max_players: {
+    maxPlayers: {
       type: DataTypes.INTEGER,
     },
   },
@@ -28,9 +28,7 @@ Game.init(
     sequelize,
     tableName: 'game',
     paranoid: true,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-    deletedAt: 'deleted_at',
+    underscored: true,
   }
 );
 

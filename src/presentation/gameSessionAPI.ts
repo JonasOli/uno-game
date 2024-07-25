@@ -6,7 +6,7 @@ const gameSessionRouter: Router = express.Router();
 gameSessionRouter.post('/', async (req, res) => {
   const { score, gameId, playerId } = req.body;
 
-  await GameSession.create({ score, game_id: gameId, player_id: playerId });
+  await GameSession.create({ score, gameId, playerId });
 
   return res.sendStatus(201);
 });

@@ -3,7 +3,7 @@ import { errors } from '../util/statusMessages';
 
 async function createGame(status: string, maxPlayers: number) {
   if (playerCountIsValid(maxPlayers)) {
-    await Game.create({ status, max_players: maxPlayers });
+    await Game.create({ status, maxPlayers });
   } else {
     throw new Error(errors.INVALID_PLAYER_COUNT);
   }

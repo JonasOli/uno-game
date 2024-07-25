@@ -36,7 +36,7 @@ gameRouter.patch('/:id', async (req, res) => {
   const { maxPlayers } = req.body;
 
   await Game.update(
-    { max_players: maxPlayers },
+    { maxPlayers },
     { where: { id: req.params.id } }
   );
 

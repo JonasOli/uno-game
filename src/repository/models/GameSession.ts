@@ -5,12 +5,12 @@ import Player from './Player';
 
 class GameSession extends Model {
   declare id: number;
-  declare game_id: number;
-  declare player_id: number;
+  declare gameId: number;
+  declare playerId: number;
   declare score: number;
-  declare created_at: CreationOptional<Date>;
-  declare updated_at: CreationOptional<Date>;
-  declare deleted_at: CreationOptional<Date>;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
+  declare deletedAt: CreationOptional<Date>;
 }
 
 GameSession.init(
@@ -28,13 +28,11 @@ GameSession.init(
     sequelize,
     tableName: 'game_session',
     paranoid: true,
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-    deletedAt: 'deleted_at',
+    underscored: true,
   }
 );
 
-Game.belongsToMany(Player, { through: GameSession, foreignKey: 'player_id' });
-Player.belongsToMany(Game, { through: GameSession, foreignKey: 'game_id' });
+Game.belongsToMany(Player, { through: GameSession, foreignKey: 'playerId' });
+Player.belongsToMany(Game, { through: GameSession, foreignKey: 'gameId' });
 
 export default GameSession;
