@@ -9,7 +9,7 @@ async function createGame(status: string, maxPlayers: number) {
   }
 }
 
-async function updateGame(maxPlayers: number, id: number) {}
+// async function updateGame(maxPlayers: number, id: number) {}
 
 function playerCountIsValid(playerCount: number) {
   return playerCount % 2 === 0;
