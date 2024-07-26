@@ -4,7 +4,6 @@ import { sequelize } from '../../db';
 class Game extends Model {
   declare id: number;
   declare status: string;
-  declare maxPlayers: number;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
   declare deletedAt: Date | null;
@@ -19,9 +18,6 @@ Game.init(
     },
     status: {
       type: DataTypes.TEXT,
-    },
-    maxPlayers: {
-      type: DataTypes.INTEGER,
     },
   },
   {

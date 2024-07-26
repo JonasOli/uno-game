@@ -1,14 +1,13 @@
 import express, { Router } from 'express';
 import { createGame } from '../application/gameApp';
 import Game from '../repository/models/Game';
+import authenticationMiddleware from '../middleware/authenticationMiddleware';
 
 const gameRouter: Router = express.Router();
 
-gameRouter.post('/', async (req, res, next) => {
+gameRouter.post('/', authenticationMiddleware, async (req, res, next) => {
   try {
-    const { status, maxPlayers } = req.body;
-
-    await createGame(status, maxPlayers);
+    await createGame();
 
     return res.sendStatus(201);
   } catch (err) {
@@ -16,37 +15,24 @@ gameRouter.post('/', async (req, res, next) => {
   }
 });
 
-gameRouter.get('/', async (req, res) => {
-  const players = await Game.findAll();
+gameRouter.get('/', authenticationMiddleware, async (req, res, next) => {
+  try {
+    const games = await Game.findAll();
 
-  return res.send(players);
+    return res.send(games);
+  } catch (err) {
+    next(err);
+  }
 });
 
-gameRouter.get('/:id', async (req, res) => {
-  const player = await Game.findAll({
-    where: {
-      id: req.params.id,
-    },
-  });
+gameRouter.get('/:id', authenticationMiddleware, async (req, res, next) => {
+  try {
+    const game = await Game.findByPk(req.params.id);
 
-  return res.send(player?.[0]);
-});
-
-gameRouter.patch('/:id', async (req, res) => {
-  const { maxPlayers } = req.body;
-
-  await Game.update(
-    { maxPlayers },
-    { where: { id: req.params.id } }
-  );
-
-  return res.sendStatus(200);
-});
-
-gameRouter.delete('/:id', async (req, res) => {
-  await Game.destroy({ where: { id: req.params.id } });
-
-  return res.sendStatus(204);
+    return res.send(game);
+  } catch (err) {
+    next(err);
+  }
 });
 
 export default gameRouter;

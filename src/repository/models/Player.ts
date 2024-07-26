@@ -5,7 +5,6 @@ class Player extends Model {
   declare id: number;
   declare name: string;
   declare email: string;
-  declare age: number;
   declare password: string;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
@@ -27,9 +26,6 @@ Player.init(
     },
     password: {
       type: DataTypes.TEXT,
-    },
-    age: {
-      type: DataTypes.INTEGER,
     },
   },
   {
