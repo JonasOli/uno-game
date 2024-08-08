@@ -3,12 +3,16 @@ import GameSession from '../repository/models/GameSession';
 
 const gameSessionRouter: Router = express.Router();
 
-gameSessionRouter.post('/', async (req, res) => {
-  const { score, gameId, playerId } = req.body;
+gameSessionRouter.post('/', async (req, res, next) => {
+  try {
+    const { score, gameId, playerId } = req.body;
 
-  await GameSession.create({ score, gameId, playerId });
+    await GameSession.create({ score, gameId, playerId });
 
-  return res.sendStatus(201);
+    return res.sendStatus(201);
+  } catch (err) {
+    next(err);
+  }
 });
 
 export default gameSessionRouter;
