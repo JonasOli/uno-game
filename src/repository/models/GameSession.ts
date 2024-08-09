@@ -8,6 +8,7 @@ class GameSession extends Model {
   declare gameId: number;
   declare playerId: number;
   declare score: number;
+  declare isOwner: boolean;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
   declare deletedAt: CreationOptional<Date>;
@@ -22,6 +23,10 @@ GameSession.init(
     },
     score: {
       type: DataTypes.INTEGER,
+    },
+    isOwner: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {

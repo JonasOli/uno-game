@@ -30,6 +30,7 @@ create table game_session(
     game_id int references game,
     player_id int references player,
     score int,
+    is_owner bool default false,
     created_at date,
     updated_at date,
     deleted_at date
