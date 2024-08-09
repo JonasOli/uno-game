@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { createGame, joinGame } from '../application/gameApp';
+import { createGame, joinGame, startGame } from '../application/gameApp';
 import authenticationMiddleware from '../middleware/authenticationMiddleware';
 import Game from '../repository/models/Game';
 
@@ -24,7 +24,20 @@ gameRouter.post('/:gameId/join', authenticationMiddleware, async (req, res, next
 
     await joinGame(parseInt(gameId), loggedInUser.email);
 
-    return res.sendStatus(201);
+    return res.send();
+  } catch (err) {
+    next(err);
+  }
+});
+
+gameRouter.post('/:gameId/start', authenticationMiddleware, async (req, res, next) => {
+  try {
+    const { gameId } = req.params;
+    const loggedInUser = (req as any).user;
+
+    await startGame(parseInt(gameId), loggedInUser.email);
+
+    return res.send();
   } catch (err) {
     next(err);
   }
