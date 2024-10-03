@@ -1,12 +1,12 @@
 import express, { Router } from 'express';
-import { signin } from '../application/authApp';
+import { signIn } from '../application/authApp';
 
 const authRouter: Router = express.Router();
 
 authRouter.post('/signin', async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const { authToken, csrfToken } = await signin(email, password);
+    const { authToken, csrfToken } = await signIn(email, password);
 
     res.setHeader('X-CSRF-Token', csrfToken);
     res.cookie('userJWT', authToken, { httpOnly: true });
