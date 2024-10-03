@@ -7,7 +7,7 @@ import { errors } from '../util/statusMessages';
 
 dotenv.config();
 
-async function signin(email: string, password: string) {
+async function signIn(email: string, password: string) {
   const player = await Player.findAll({ where: { email } });
 
   if (player.length === 0) {
@@ -39,4 +39,4 @@ async function generateHashedPassword(password: string) {
   return await bcrypt.hash(password, saltRounds);
 }
 
-export { generateHashedPassword, signin };
+export { generateHashedPassword, signIn };

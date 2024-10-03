@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import Player from '../../repository/models/Player';
 import { errors } from '../../util/statusMessages';
-import { generateHashedPassword, signin } from '../authApp';
+import { generateHashedPassword, signIn } from '../authApp';
 
 describe('Auth', () => {
   const OLD_ENV = process.env;
@@ -23,7 +23,7 @@ describe('Auth', () => {
     jest.spyOn(Player, 'findAll').mockResolvedValue([]);
 
     try {
-      await signin('email', 'password');
+      await signIn('email', 'password');
     } catch (err: any) {
       expect(err.message).toEqual(errors.INVALID_CREDENTIALS);
     }
@@ -40,7 +40,7 @@ describe('Auth', () => {
     ]);
 
     expect(async () => {
-      await signin('email', 'wrongPassword');
+      await signIn('email', 'wrongPassword');
     }).rejects.toThrow(errors.INVALID_CREDENTIALS);
   });
 
@@ -57,7 +57,7 @@ describe('Auth', () => {
     const JWT_SECRET = 'test_secret';
     process.env.JWT_SECRET = JWT_SECRET;
 
-    const { authToken } = await signin('email', 'mypassword');
+    const { authToken } = await signIn('email', 'mypassword');
     const result = jwt.verify(authToken, JWT_SECRET);
 
     expect(result).toBeTruthy();
